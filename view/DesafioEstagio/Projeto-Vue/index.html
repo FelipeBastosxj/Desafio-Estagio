@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto Vue.JS</title>
+    <link rel="stylesheet" href="./estilos/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/airbnb.css">
+
+
+</head>
+<body>
+    <div id="app">
+            <titlee title="SAV - Sistema de Agendamento de Vacinas"></titlee>
+        
+            <div class="principal" v-show="mostrar">
+                <div class="centro">
+                    <h1>Você é paciente ou aplicador(a)?</h1>
+                    <div class="botoes">
+                        <button class="b1"  @mouseover="esconder" @click="mostrarP = true, mostrar = false">Paciente</button>
+                        <button class="b2" @click="mostrarA = true, mostrar= false">Aplicador</button>
+                    </div>
+                </div>
+            </div>
+
+    <div v-show="mostrarA" class="aplicador">
+        <h1>Aplicador(a) faça seu login</h1>
+        <form action="" method="POST">
+            <label for="EmailA">Email</label>
+            <input @click="label" @blur="efeito2" @focus="efeito" type="email" id="EmailA" v-model="EmailA" autocomplete="off" required>
+            <div></div>
+            <label for="SenhaA">Senha</label>
+            <input  @click="label" @focus="efeito" @blur="efeito2" type="password" id="SenhaA" v-model="SenhaA" autocomplete="off" required>
+            <button type="submit">Logar</button>
+            <button id="fvoltarr" @click="mostrar= true, mostrarA = false">Voltar</button>
+        </form>
+        
+    </div>
+
+    <div v-show="mostrarP" class="mostrarP">
+        <form action="/show" method="POST">
+            <titlee2 title2="Agende sua vacinação!"></titlee2>
+            <input autocomplete="off" placeholder="Nome" v-model="nome" name="Nome" required>
+            <input autocomplete="off" placeholder="CPF" v-model="cpf" type="text" maxlength="11" name="Cpf" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+            <label for="dataN">Digite sua data de Nascimento*</label>
+            <input autocomplete="off" @keyup="ativar" max="2004-01-10" placeholder="Data de Nascimento" v-model="dataN" type="date" id="dataN" name="Data-de-Nascimento" required>
+            <select v-model="selected" name="LocaldeVacinação">
+                <option disabled value="">Escolha o local de Vacinação</option>
+                <optgroup label="Feira de Santana"></optgroup>
+                <option value="UBS Subaé">UBS Subaé</option>
+                <option value="UBS Caseb 1">UBS Caseb 1</option>
+                <option value="UBS Caseb 2">UBS Caseb 2</option>
+                <option value="UBS Baraúnas">UBS Baraúnas</option>
+                <option value="UBS Irmã Dulce">UBS Irmã Dulce</option>
+                <option value="UBS Mangabeira">UBS Mangabeira</option>
+                <option value="UBS Serraria Brasil">UBS Serraria Brasil</option>
+                <option value="UBS Jardim Cruzeiro">UBS Jardim Cruzeiro</option>
+                <option value="UBS Dispensário Santana">UBS Dispensário Santana</option>
+                <option value="UBS CSU (Centro Social Urbano)">UBS CSU (Centro Social Urbano)</option>
+                <option value="LHospital Dom Pedro de Alcântara (HDPA)">Hospital Dom Pedro de Alcântara (HDPA)</option>                 
+                </optgroup>
+                <optgroup label="Distritos"></optgroup>
+                <option value="USF Bonfim de Feira">USF Bonfim de Feira</option>
+                <option value="USF Maria Quitéria (São José)">USF Maria Quitéria (São José)</option>
+                <option value="Humildes">Humildes</option>
+                <option value="Tiquaruçu">Tiquaruçu</option>
+                <option value="Jaíba">Jaíba</option>
+                <option value="Jaguara">Jaguara</option>
+                <option value="Matinha">Matinha</option>                             
+                </optgroup>
+              </select>
+              <label for="dataV" id="dataV">Digite sua data de Vacinação*</label>
+              <input autocomplete="off" style="display: none;" name="DatadeVacinação" placeholder="Data para Vacinação" v-model="dataV" type="date" id="vacination-date" required>
+              <input type="submit" @click="impedimento" value="Enviar" id="sub">
+        </form>
+        <button class="fvoltar" @click="mostrar= true, mostrarP = false">Voltar</button>
+    </div>
+    
+    </div>
+</body>
+
+<script >
+    
+
+    /*COMPONENTE TITULO1*/
+    Vue.component('titlee', {
+        props: ['title'],
+        template: `<div class="title"> <img src="./img/seringa.png" alt=""><p>{{title}}</p> </div>`
+        })
+
+         /* COMPONENTE TITULO2*/
+    
+     /* COMPONENTE TITULO2*/
+     Vue.component('titlee2', {
+    props: ['title2'],
+    template: `<div class="title2"> <p>{{title2}}</p> </div>`
+    })
+
+    const vm = new Vue({
+        el: "#app",
+        data: {
+            mostrarA:false,
+            mostrar:true,
+            mostrarP:false,
+            nome: "",
+            cpf: "",
+            dataN: "",
+            dataV:"",
+            selected:"",
+            EmailA:"",
+            SenhaA:"",
+        },
+        methods:{
+            ativar(e){
+                if(this.dataN != ""){
+                    e.target.parentNode.children[7].style.display = 'flex'
+                    e.target.parentNode.children[6].style.display = 'flex'
+                    e.target.parentNode.children[8].style.display = 'flex'
+                    e.target.parentNode.children[7].nextElementSibling.classList.remove('esconder-calendario')
+                }else if(this.dataN == ""){
+                    e.target.parentNode.children[7].style.display = 'none'
+                    e.target.parentNode.children[6].style.display = 'none'
+                    e.target.parentNode.children[8].style.display = 'none'
+                }
+            },
+            efeito(e){
+                if(e.target.value ==""){
+                    e.target.style.borderColor = 'red';
+                }
+                
+            },
+            efeito2(e){
+                if(e.target.value != ""){
+                    e.target.style.borderColor = 'green'
+                }
+                else if(e.target.value == ""){
+                    e.target.previousElementSibling.classList.remove('subir')
+                }
+            },
+            label(e){
+                e.target.previousElementSibling.classList.add('subir')
+            },
+            esconder(e){
+                e.target.parentNode.parentNode.parentNode.parentNode.children[3].children[0].children[8].classList.add('esconder-calendario')
+            },
+            impedimento(e){
+
+                if(this.cpf.length < 11){
+                    e.preventDefault()
+                    alert("Prencha o cpf completamente")
+                }else  if(this.dataN.split('-')[0].length > 4){
+
+                    alert("digite a data de nascimento corretamente")
+                    e.preventDefault()
+                }else  if(this.dataN.split('-')[0] >= 2004){
+
+                    alert("A data de nascimento precisa ser menor de 2004")
+                    e.preventDefault()
+                } 
+                
+            }
+           
+        }
+    })
+
+    flatpickr("#vacination-date", {
+        "inline":true,
+        "dateFormat": "d-m-Y",
+        "disable": [
+        function(date) {
+            // return true to disable
+            return (date.getDay() === 0 || date.getDay() === 7);
+
+        }
+        ],
+        "locale": {
+        "firstDayOfWeek": 1 // start week on Monday
+        }
+        
+
+    })
+    
+</script>
+
+</html>

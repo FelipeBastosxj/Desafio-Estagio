@@ -1,0 +1,327 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+body{
+    background-color: #BACBB2;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.title{
+    font-weight: 600;
+    width: 100%;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+img{
+    height: 4rem;
+    width: 4rem;
+}
+
+@keyframes fade{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+.mostrarP form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+    animation: fade 0.5s ease-in-out;
+}
+
+.mostrarP select{
+    width: 37.1rem;
+    height: 4rem;
+    border-radius: 10px;
+    border: 0;
+    margin-top: 1rem;
+    outline: none;
+    font-size: 1.5rem;
+    padding-left: 25px;
+    border: 2px solid #E8F9E0;
+    background-color: #a8b6a1;
+}
+
+.mostrarP form input{
+    width: 35rem;
+    height: 4rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+    border: 0;
+    outline: none;
+    font-size: 1.5rem;
+    padding-left: 25px;
+    border: 2px solid #E8F9E0;
+    background-color: #a8b6a1;
+}
+
+#sub{
+    width: 150px;
+    height: 60px;
+    margin-top: 23px;
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+    font-size: 30px;
+    padding-left: 0px;
+    border: 2px solid #E8F9E0;
+    background-color: #BACBB2;
+    display: flex;
+    margin-left: 950px;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+#sub:hover{
+    background-color: black;
+    color: white;
+}
+
+::-webkit-input-placeholder {
+    color: black;
+ }
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+   
+}
+
+.title2{
+    width: 38rem;
+    height: 80px;
+    font-size: 1.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #E8F9E0;
+    border-radius: 15px;
+}
+
+.title2 p{
+   color: rgba(0, 0, 0, 0.705);
+   font-weight: 600;
+}
+
+#vacination-date{
+    margin-bottom: 1rem;
+}
+@keyframes lateral{
+    from{
+        opacity: 0;
+        transform: translate3d(0px,-20px,0px);
+    }
+    to{
+        opacity: 1;
+        transform: translate3d(0px,0px,0px);
+    }
+}
+.principal{
+    display: flex;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    background-color: #BACBB2;
+    margin: 0 auto;
+    transition: 0.5 ease-in-out;
+    animation: lateral 0.5s ease-in-out;
+}
+
+.centro{
+    background-color: #ffffff;
+    height: 500px;
+    width: 100%;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.centro h1{
+    display: flex;
+    margin-top: 50px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.botoes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.botoes button{
+    cursor: pointer;
+    margin-left: 80px;
+    margin-right: 80px;
+    width: 250px;
+    height: 70px;
+    border-radius: 20px;
+    border: 0;
+    font-weight: 700;
+    font-size: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.b1{
+    background-color: #9ACCE9;
+}
+.b2{
+    background-color: #FFBC57;
+}
+
+.fvoltar{
+    width: 150px;
+    height: 60px;
+    margin-top: 23px;
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+    font-size: 30px;
+    padding-left: 0px;
+    border: 2px solid #E8F9E0;
+    background-color: #BACBB2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+    margin-top: -59px;
+    margin-left: 30px;
+}
+#fvoltarr{
+    width: 50px;
+    height: 50px;
+    margin-top: 23px;
+    border-radius: 30px;
+    border: 0;
+    outline: none;
+    font-size: 13px;
+    padding-left: 0px;
+    border: 2px solid #E8F9E0;
+    background-color: brown;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+    margin-top: 15px;
+}
+
+.fvoltar:hover{
+    background-color: red;
+    color: white;
+}
+
+.mostrarP label{
+    margin-top: 20px;
+    font-size: 25px;
+    margin-right: 400px;
+    color: red;
+}
+
+.mostrar{
+    background-color: black;
+}
+
+#dataV{
+    display: none;
+}
+
+.aplicador{
+    display: flex;
+    margin: 0 auto;
+    background-color: #ffffff;
+    height: 70vh;
+    width: 70%;
+    margin-top: 50px;
+    border-radius: 25px;
+    flex-direction: column;
+}
+
+.aplicador form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.aplicador form input{    
+    border: none;
+    border-bottom: 2px solid black;
+    outline: none;
+    width: 550px;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    height: 30px;
+    border-radius: 3px;
+    transition: 0.5s ease-in-out;
+}
+
+.subir{
+    transform: translate3d(0px, 60px,0px) !important;
+
+}
+
+.aplicador form label{
+    
+    margin-right: 508px;
+    margin-top: 20px;
+    transform: translate3d(0px,90px,0px);
+    transition: 0.5s ease-in-out;
+}
+
+.aplicador h1{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.efeito{
+    background-color: green;
+    animation: scale 0.5s ease-in-out;
+    display: block !important
+}
+
+
+.aplicador form button{
+    margin-top: 1rem;
+    cursor: pointer;
+    background-color: #9ACCE9;
+    width: 175px;
+    border: 0;
+    height: 45px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.3rem;
+    transition: 0.5s ease-in-out;
+}
+
+.aplicador form button:hover{
+    background-color: green;
+}
+
+.esconder-calendario{
+    display: none !important;
+}
+
+#Vmarca{
+    display: none;
+}
