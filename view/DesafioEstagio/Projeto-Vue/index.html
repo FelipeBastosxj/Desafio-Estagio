@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Vue.JS</title>
+    <title>Sav - Sistema de Agendamento</title>
+    <link rel="shortcut icon" href="./img/healthcare.svg" type="image/x-icon">
     <link rel="stylesheet" href="./estilos/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -21,20 +22,20 @@
                 <div class="centro">
                     <h1>Você é paciente ou aplicador(a)?</h1>
                     <div class="botoes">
-                        <button class="b1"  @mouseover="esconder" @click="mostrarP = true, mostrar = false">Paciente</button>
                         <button class="b2" @click="mostrarA = true, mostrar= false">Aplicador</button>
+                        <button class="b1"  @mouseover="esconder" @click="mostrarP = true, mostrar = false">Paciente</button>
                     </div>
                 </div>
             </div>
 
     <div v-show="mostrarA" class="aplicador">
-        <h1>Aplicador(a) faça seu login</h1>
-        <form action="" method="POST">
+        <h1 class="type">Aplicador(a) faça seu login</h1>
+        <form action="/tabela" method="POST">
             <label for="EmailA">Email</label>
-            <input @click="label" @blur="efeito2" @focus="efeito" type="email" id="EmailA" v-model="EmailA" autocomplete="off" required>
+            <input @click="label" @blur="efeito2" @focus="efeito" type="email" id="EmailA" v-model="EmailA" name="EmailA" autocomplete="off" required>
             <div></div>
             <label for="SenhaA">Senha</label>
-            <input  @click="label" @focus="efeito" @blur="efeito2" type="password" id="SenhaA" v-model="SenhaA" autocomplete="off" required>
+            <input  @click="label" @focus="efeito" @blur="efeito2" type="password" id="SenhaA" v-model="SenhaA" name="SenhaA" autocomplete="off" required>
             <button type="submit">Logar</button>
             <button id="fvoltarr" @click="mostrar= true, mostrarA = false">Voltar</button>
         </form>
@@ -46,8 +47,13 @@
             <titlee2 title2="Agende sua vacinação!"></titlee2>
             <input autocomplete="off" placeholder="Nome" v-model="nome" name="Nome" required>
             <input autocomplete="off" placeholder="CPF" v-model="cpf" type="text" maxlength="11" name="Cpf" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
+            <select name="dose" v-model='dose' id="">
+                <option disabled value="">Qual dose você precisa tomar?</option>
+                <option value="Primeira Dose">Primeira Dose</option>
+                <option value="Segunda Dose">Segunda Dose</option>
+            </select>
             <label for="dataN">Digite sua data de Nascimento*</label>
-            <input autocomplete="off" @keyup="ativar" max="2004-01-10" placeholder="Data de Nascimento" v-model="dataN" type="date" id="dataN" name="Data-de-Nascimento" required>
+            <input autocomplete="off" @change="ativar" max="2004-01-10" placeholder="Data de Nascimento" v-model="dataN" type="date" id="dataN" name="Data-de-Nascimento" required>
             <select v-model="selected" name="LocaldeVacinação">
                 <option disabled value="">Escolha o local de Vacinação</option>
                 <optgroup label="Feira de Santana"></optgroup>
@@ -79,7 +85,6 @@
         </form>
         <button class="fvoltar" @click="mostrar= true, mostrarP = false">Voltar</button>
     </div>
-    
     </div>
 </body>
 
@@ -113,9 +118,11 @@
             selected:"",
             EmailA:"",
             SenhaA:"",
+            dose:""
         },
         methods:{
             ativar(e){
+    
                 if(this.dataN != ""){
                     e.target.parentNode.children[7].style.display = 'flex'
                     e.target.parentNode.children[6].style.display = 'flex'
@@ -126,6 +133,7 @@
                     e.target.parentNode.children[6].style.display = 'none'
                     e.target.parentNode.children[8].style.display = 'none'
                 }
+               
             },
             efeito(e){
                 if(e.target.value ==""){
@@ -145,27 +153,46 @@
                 e.target.previousElementSibling.classList.add('subir')
             },
             esconder(e){
-                e.target.parentNode.parentNode.parentNode.parentNode.children[3].children[0].children[8].classList.add('esconder-calendario')
+                e.target.parentNode.parentNode.parentNode.parentNode.children[3].children[0].children[9].classList.add('esconder-calendario')
             },
             impedimento(e){
-
                 if(this.cpf.length < 11){
                     e.preventDefault()
+
                     alert("Prencha o cpf completamente")
                 }else  if(this.dataN.split('-')[0].length > 4){
 
                     alert("digite a data de nascimento corretamente")
                     e.preventDefault()
+
                 }else  if(this.dataN.split('-')[0] >= 2004){
 
                     alert("A data de nascimento precisa ser menor de 2004")
                     e.preventDefault()
-                } 
-                
+
+                }else  if(this.nome == ''){
+                    e.preventDefault()
+
+                }else  if(this.selected == ''){
+
+                    e.preventDefault()
+                    
+                }else  if(this.dataV == ''){
+                    
+                    e.preventDefault()
+                    
+                }else  if(this.dataN == ''){
+                    
+                    e.preventDefault()
+                }else if (true){
+                    alert("Cadastro feito com sucesso")
+                }
             }
-           
+            
         }
     })
+
+    
 
     flatpickr("#vacination-date", {
         "inline":true,

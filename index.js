@@ -20,9 +20,21 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json())
 app.use(express.static('./view/DesafioEstagio/Projeto-Vue'));
 
-app.get('/', function(req, res){
-        
-        
+
+app.post('/tabela', (req, res) =>{
+    db.collection('aplicadores').find().toArray(
+        (err, results) => {
+
+            if (err) {
+                return console.log(err)
+            }
+            
+            Emaildb = results.map(e =>{
+                return e.EmailA
+            })
+            console.log(Emaildb.join(''))
+        })
+    
 })
 
 app.post('/show', function(req, res){
@@ -50,12 +62,29 @@ app.post('/show', function(req, res){
     delete req.body['Data-de-Nascimento']
     const savedb = {...req.body, MarcaDaVacina, DataDeNascimento}
     
-    db.collection("paciente").save(savedb, (err, result) => {
-        if(err){
-            return console.log("deu erro")
-        }
-        console.log(req)
-        console.log("Salvo no mongoDB")
-        res.redirect("localhost")
-    })
+    if(savedb.dose == "Segunda Dose"){
+        db.collection("SegundaDose").save(savedb, (err, result) => {
+            if(err){
+                return console.log("deu erro")
+            }
+            console.log(req)
+            console.log("Salvo no mongoDB")
+    
+            res.redirect("back")
+    
+        })
+    }else{
+        db.collection("PrimeiraDose").save(savedb, (err, result) => {
+            if(err){
+                return console.log("deu erro")
+            }
+            console.log(req)
+            console.log("Salvo no mongoDB")
+    
+            res.redirect("back")
+    
+        })
+    }
+    
+   
 })

@@ -141,6 +141,10 @@ input::-webkit-inner-spin-button {
 }
 
 .centro{
+    background-image: url(../img/Principal.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     background-color: #ffffff;
     height: 500px;
     width: 100%;
@@ -156,6 +160,7 @@ input::-webkit-inner-spin-button {
     width: 100%;
     justify-content: center;
     align-items: center;
+    color: #04af9f;
 }
 
 .botoes{
@@ -176,14 +181,23 @@ input::-webkit-inner-spin-button {
     border: 0;
     font-weight: 700;
     font-size: 20px;
+    transition: 0.5s ease-in-out;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .b1{
-    background-color: #9ACCE9;
+    background-color: #9acce9;
 }
 .b2{
-    background-color: #FFBC57;
+    background-color: #ffbc57;
+}
+
+.b1:hover{
+    background-color: #9acce986;
+}
+
+.b2:hover{
+    background-color: #ffbc578c;
 }
 
 .fvoltar{
@@ -245,6 +259,10 @@ input::-webkit-inner-spin-button {
 }
 
 .aplicador{
+    background-image: url(../img/Login.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     margin: 0 auto;
     background-color: #ffffff;
@@ -264,6 +282,7 @@ input::-webkit-inner-spin-button {
 }
 
 .aplicador form input{    
+    background-color: transparent;
     border: none;
     border-bottom: 2px solid black;
     outline: none;
@@ -325,3 +344,4 @@ input::-webkit-inner-spin-button {
 #Vmarca{
     display: none;
 }
+
