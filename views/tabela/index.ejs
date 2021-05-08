@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../Vue/img/medicine.svg" type="image/x-icon">
+    <link rel="stylesheet" href="../Vue/estilos/styleAplicador.css">
+    <title>Tela-Aplicador</title>
+</head>
+<body>
+    <div id="app">
+        <div class="title">
+            <div class="titles">
+                <img src="../Vue/img/seringa.png" alt="">
+                <p>SAV - Sistema de Agendamento de Vacinas</p>
+            </div>
+            <h1>AGENDAMENTOS</h1>
+        </div>
+        </div>
+        
+        <main class="tabela">
+            <div class="informacoes">
+            <% dado.forEach( function(dados){ %>
+                <div>
+                    <section>
+                        (Nome)
+                    </section>
+                    <p> <%= dados.Nome %></p>
+            </div>
+                <div>
+                    <section>
+                        (CPF)
+                    </section>
+                <p><%= dados.Cpf %></p>
+            </div>
+                <div>
+                    <section>
+                        (Dose-Submetida)
+                    </section>
+                <p><%= dados.dose %></p>
+                </div>
+                <div>
+                    <section>
+                        (Marca da Vacina)
+                    </section>
+                <p><%= dados.MarcaDaVacina %></p>
+                </div>
+                <div>
+                    <section>
+                        (Nascimento)
+                    </section>
+                <p><%= dados.DataDeNascimento %></p>
+                </div>
+                <div>
+                    <section>
+                        (DataDeVacinação)
+                    </section>
+                <p><%= dados.DatadeVacinação %></p>
+                </div>
+                <div>
+                    <section>
+                        (Local)
+                    </section>
+                <p><%= dados.LocaldeVacinação %></p>
+                </div>
+           <% })%>
+            </div>
+        </main>
+        <footer>
+            <button id="s">Sair</button>
+            <button>Agendar 2º dose</button>
+        </footer>
+    </div>
+</body>
+
+</html>

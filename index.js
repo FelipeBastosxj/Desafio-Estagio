@@ -16,12 +16,15 @@ MongoClient.connect(uri, (err, client)=> {
     })
 })
 
+
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.json())
-app.use(express.static('./view/DesafioEstagio/Projeto-Vue'));
+app.set('view engine', 'ejs')
+app.use(express.static('./views/Vue'));
+app.use(express.static('./views/'));
 
 
-app.post('/tabela', (req, res) =>{
+app.post('/login', (req, res) =>{
     db.collection('aplicadores').find().toArray(
         (err, results) => {
 
@@ -29,14 +32,41 @@ app.post('/tabela', (req, res) =>{
                 return console.log(err)
             }
             
-            Emaildb = results.map(e =>{
+            Emaildbb = results.map(e =>{
                 return e.EmailA
             })
-            console.log(Emaildb.join(''))
+            Senhadbb = results.map(e =>{
+                return e.SenhaA
+            })
+            Emaildb = Emaildbb.join('')
+            Senhadb = Senhadbb.join('')
+            
+            if(req.body.EmailA == Emaildb && req.body.SenhaA == Senhadb){
+                res.redirect('tabela')
+            }
+            
         })
+
     
 })
 
+app.get('/tabela', function (req, res) {
+    db.collection('PrimeiraDose').find().toArray(
+        (err, results) => {
+
+            if (err) {
+                return console.log(err)
+            }
+            
+            res.render('tabela', {dado: results})
+             
+            
+        })
+
+})
+
+
+/*ENVIAR DADOS DO PACIENTE PARA O BANCO*/
 app.post('/show', function(req, res){
     data = new Date();
     ano4 = data.getFullYear()

@@ -38,25 +38,40 @@ img{
 
 .tabela{
     width: 100%;
-    margin-top: 35px;
+    margin-top: 100px;
 }
 
-.tabela .topo{
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 22px;
-    margin-left: 40px !important;
-}
+
 
 .informacoes{
     display: flex;
     width: 100%;
     background-color: #DED9D9;
-    flex-direction: column;
     height: 500px;
+    justify-content: space-between;
 }
 
+.informacoes section{
+ display: flex;
+ flex-direction: column;
+ z-index: 100;
+ margin-top: -25px;
+ position: absolute;
+ font-size: 20px;
+ 
+}
+
+.informacoes p{
+    margin-top: 10px;
+}
+.informacoes div{
+    margin-left: 10px;
+}
+
+
+.informacoes p{
+    z-index: 100;
+}
 footer{
     display: flex;
     justify-content: space-between;
