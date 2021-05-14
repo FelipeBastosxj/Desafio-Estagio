@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../Vue/img/medicine.svg" type="image/x-icon">
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-    <link rel="stylesheet" href="../Vue/estilos/styleAplicador.css">
-    <title>Tela-Aplicador</title>
+    <link rel="stylesheet" href="../Vue/estilos/SegundaDose.css">
+    <title>Segunda-Dose</title>
 </head>
 <body>
     <div id="app">
@@ -19,7 +19,7 @@
             <h1>AGENDAMENTOS</h1>
         </div>
         </div>
-        <p class="style">Pacientes Primeira-Dose</p>
+        <p class="style">Pacientes Segunda-Dose</p>
         <input type="number" id="txtBusca" placeholder="Digite o Cpf do Paciente"/>
             <div class="descricao">
                 <div>Nome</div>
@@ -42,14 +42,13 @@
                 <div><%= dados.DataDeNascimento %></div>
                 <div><%= dados.DatadeVacinação %></div>
                 <div id="a1"><%= dados.LocaldeVacinação %></div>
-                <div id="a2"><a href="/Vacinado/<%= dados._id %>">Vacinar</a></div>
+                <div id="a2"><a href="/Vacinado2/<%= dados._id %>">Vacinar</a></div>
             </section>
            <% })%>
             </div>
         </main>
         <footer>
-            <button id="s">Sair</button>
-            <button id="mudar">Pacientes 2º dose</button>
+            <button id="s">Voltar</button>
         </footer>
     </div>
 </body>
@@ -58,31 +57,9 @@
     redirect = document.querySelector('#s')
 
     mudar = () =>{
-        window.location.href = '/Deslogar'
+        window.location.href = '../tabela/'
     }
     redirect.addEventListener('click', mudar)
-
-
-    /*dasdasd*/
-    tabela2 = document.querySelector('#mudar')
-
-    muda = () =>{
-        window.location.href = '/SegundaDose'
-    }
-
-    tabela2.addEventListener('click', muda)
-
-    $(function(){
-	$("#txtBusca").keyup(function(){
-		var texto = $(this).val();
-
-		$("#Itens section").css("display", "flex");
-		$("#Itens section").each(function(){
-			if($(this).text().indexOf(texto) < 0)
-			   $(this).css("display", "none");
-		});
-	});
-});
 
 </script>
 </html>

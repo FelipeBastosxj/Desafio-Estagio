@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/airbnb.css">
-
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/pt.js"></script>
 
 </head>
 <body>
@@ -32,10 +32,10 @@
         <h1 class="type">Aplicador(a) faça seu login</h1>
         <form action="/login" method="POST">
             <label for="EmailA">Email</label>
-            <input @click="label" @blur="efeito2" @focus="efeito" type="email" id="EmailA" v-model="EmailA" name="EmailA" autocomplete="off" required>
+            <input @change='session' @click="label" @blur="efeito2" @focus="efeito" type="email" id="EmailA" v-model="EmailA" name="EmailA" autocomplete="off" required>
             <div></div>
             <label for="SenhaA">Senha</label>
-            <input  @click="label" @focus="efeito" @blur="efeito2" type="password" id="SenhaA" v-model="SenhaA" name="SenhaA" autocomplete="off" required>
+            <input @change='session' @click="label" @focus="efeito" @blur="efeito2" type="password" id="SenhaA" v-model="SenhaA" name="SenhaA" autocomplete="off" required>
             <button type="submit">Logar</button>
             <button id="fvoltarr" @click="mostrar= true, mostrarA = false">Voltar</button>
         </form>
@@ -46,15 +46,16 @@
         <form action="/show" method="POST">
             <titlee2 title2="Agende sua vacinação!"></titlee2>
             <input autocomplete="off" placeholder="Nome" v-model="nome" name="Nome" required>
+            <input type="email" autocomplete="off" placeholder="Email" name="email" v-model="email" required>
             <input autocomplete="off" placeholder="CPF" v-model="cpf" type="text" maxlength="11" name="Cpf" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required>
-            <select name="dose" v-model='dose' id="">
+            <select name="dose" v-model='dose' id="" required>
                 <option disabled value="">Qual dose você precisa tomar?</option>
                 <option value="Primeira Dose">Primeira Dose</option>
                 <option value="Segunda Dose">Segunda Dose</option>
             </select>
             <label for="dataN">Digite sua data de Nascimento*</label>
-            <input autocomplete="off" @change="ativar" max="2004-01-10" placeholder="Data de Nascimento" v-model="dataN" type="date" id="dataN" name="Data-de-Nascimento" required>
-            <select v-model="selected" name="LocaldeVacinação">
+            <input autocomplete="off" @change="ativar" max="2004-01-10" min="1900-01-10" placeholder="Data de Nascimento" v-model="dataN" type="date" id="dataN" name="Data-de-Nascimento" required>
+            <select v-model="selected" name="LocaldeVacinação" required>
                 <option disabled value="">Escolha o local de Vacinação</option>
                 <optgroup label="Feira de Santana"></optgroup>
                 <option value="UBS Subaé">UBS Subaé</option>
@@ -81,6 +82,30 @@
               </select>
               <label for="dataV" id="dataV">Digite sua data de Vacinação*</label>
               <input autocomplete="off" style="display: none;" name="DatadeVacinação" placeholder="Data para Vacinação" v-model="dataV" type="date" id="vacination-date" required>
+
+              <select v-model="horario" name="HorarioVacinação" required>
+                <option disabled value="">Escolha o Horario</option>
+                <option value="6:00">6:00</option>
+                <option value="7:00">7:00</option>
+                <option value="7:30">7:30</option>
+                <option value="8:00">8:00</option>
+                <option value="8:30">8:30</option>
+                <option value="9:00">9:00</option>
+                <option value="9:30">9:30</option>
+                <option value="10:00">10:00</option>
+                <option value="10:30">10:30</option>
+                <option value="11:00">11:00</option>
+                <option value="11:30">11:30</option>
+                <option value="13:00">13:00</option>
+                <option value="13:30">13:30</option>
+                <option value="14:00">14:00</option>
+                <option value="14:30">14:30</option>
+                <option value="15:00">15:00</option>
+                <option value="15:30">15:30</option>
+                <option value="16:00">16:00</option>
+                <option value="16:30">16:30</option>
+                <option value="17:00">17:00</option>
+                <option value="17:30">17:30</option>         
               <input type="submit" @click="impedimento" value="Enviar" id="sub">
         </form>
         <button class="fvoltar" @click="mostrar= true, mostrarP = false">Voltar</button>
@@ -111,6 +136,7 @@
             mostrarA:false,
             mostrar:true,
             mostrarP:false,
+            email:"",
             nome: "",
             cpf: "",
             dataN: "",
@@ -118,20 +144,21 @@
             selected:"",
             EmailA:"",
             SenhaA:"",
-            dose:""
+            dose:"",
+            horario:""
         },
         methods:{
             ativar(e){
     
                 if(this.dataN != ""){
-                    e.target.parentNode.children[7].style.display = 'flex'
-                    e.target.parentNode.children[6].style.display = 'flex'
                     e.target.parentNode.children[8].style.display = 'flex'
-                    e.target.parentNode.children[7].nextElementSibling.classList.remove('esconder-calendario')
+                    e.target.parentNode.children[7].style.display = 'flex'
+                    e.target.parentNode.children[9].style.display = 'flex'
+                    e.target.parentNode.children[9].nextElementSibling.classList.remove('esconder-calendario')
                 }else if(this.dataN == ""){
-                    e.target.parentNode.children[7].style.display = 'none'
-                    e.target.parentNode.children[6].style.display = 'none'
                     e.target.parentNode.children[8].style.display = 'none'
+                    e.target.parentNode.children[7].style.display = 'none'
+                    e.target.parentNode.children[9].style.display = 'none'
                 }
                
             },
@@ -153,7 +180,7 @@
                 e.target.previousElementSibling.classList.add('subir')
             },
             esconder(e){
-                e.target.parentNode.parentNode.parentNode.parentNode.children[3].children[0].children[9].classList.add('esconder-calendario')
+                e.target.parentNode.parentNode.parentNode.parentNode.children[3].children[0].children[10].classList.add('esconder-calendario')
             },
             impedimento(e){
                 if(this.cpf.length < 11){
@@ -170,6 +197,10 @@
                     alert("A data de nascimento precisa ser menor de 2004")
                     e.preventDefault()
 
+                }else if(this.dataN.split('-')[0] <= 1900){
+
+                    alert("A data de nascimento muito antiga confira os dados corretamente ")
+                    e.preventDefault()
                 }else  if(this.nome == ''){
                     e.preventDefault()
 
@@ -184,17 +215,50 @@
                 }else  if(this.dataN == ''){
                     
                     e.preventDefault()
+                }else  if(this.dose == ''){
+                    
+                    e.preventDefault()
                 }else if (true){
-                    alert("Cadastro feito com sucesso")
+                    alert("Cadastro enviado com sucesso")
                 }
+
+                },
+                session(e){
+                    sessionStorage.setItem(e.target.name, e.target.value)
+                    
             }
             
         }
     })
 
+    pegar = document.querySelector('#dataN')
     
+   liberando = (e) =>{
+      data = new Date();
+      ano4 = data.getFullYear()
+      dataformatada = e.target.value.split('-').reverse()[2] 
+      idade = +ano4 - +dataformatada
 
-    flatpickr("#vacination-date", {
+      if(idade >= 60){
+
+        Midate = "2021-05-24"
+        Madate = "2021-06-30"
+
+        }else if(idade < 60 && idade > 30){
+
+        Midate = "2021-07-01"
+        Madate = "2021-08-09"
+
+        }else if(idade <= 30){
+
+        Midate = "2021-08-10"
+        Madate = "2021-12-07"
+
+        }
+
+        flatpickr("#vacination-date", {
+        minDate: Midate,
+        maxDate: Madate,
         "inline":true,
         "dateFormat": "d-m-Y",
         "disable": [
@@ -204,12 +268,18 @@
 
         }
         ],
-        "locale": {
-        "firstDayOfWeek": 1 // start week on Monday
-        }
+        "locale": 'pt'
         
 
     })
+    }
+
+
+
+    
+    pegar.addEventListener('change', liberando)
+    
+
     
 </script>
 
