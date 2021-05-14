@@ -56,7 +56,9 @@ app.post('/login', (req, res) =>{
     
 })
 
-
+app.get('/', function (req, res){
+    res.send('ola')
+})
 
 app.get('/tabela', function (req, res) {
     if(!req.session.user){
