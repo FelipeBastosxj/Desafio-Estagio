@@ -107,62 +107,65 @@ app.get('/SegundaDose', function (req, res) {
 
 
 /*ENVIAR DADOS DO PACIENTE PARA O BANCO*/
-app.post('/show', function(req, res){
+app.post('/show', async function(req, res){
 
 
-    /*db.collection('PrimeiraDose').find().toArray((err, results) =>{
-        if(err) console.log(err)
+    /*verifica CPF dos cadastrados da primeira Dose*/
+    try{
 
+        const results = await db.collection('PrimeiraDose').find().toArray();
 
         results.map(e=>{
             if(req.body.Cpf == e.Cpf){
-                    return res.status(400).end('Cpf ja cadastrado')
+                return res.send('CPF ja cadastrado')
             }
         })
-            
-            
-    })
+    }catch(err){
+        return err
+    }
 
-    db.collection('SegundaDose').find({ "LocaldeVacinação": req.body.LocaldeVacinação }).toArray((err, results) =>{
-        if(err) console.log(err)
+    /*verifica CPF dos cadastrados da primeira Dose*/
+    try{
 
+        const resultados = await db.collection('SegundaDose').find().toArray();
 
+        resultados.map(e=>{
+            if(req.body.Cpf == e.Cpf){
+                return res.send('CPF ja cadastrado')
+            }
+        })
+    }catch(err){
+        return err
+    }
+
+    /*Verifica se n tem incopatibilidade de horario de agendamento da primeira dose*/
+    try{
+        const results = await db.collection('PrimeiraDose').find({ "LocaldeVacinação": req.body.LocaldeVacinação }).toArray();
+        
         results.map(e=>{
-            if(e.DatadeVacinação == req.body['DatadeVacinação'] && e.HorarioVacinação == req.body['HorarioVacinação']){
-                return res.status(400).end('CPF JA CADASTRADO')
-            }
+        if(e.DatadeVacinação == req.body['DatadeVacinação'] && e.HorarioVacinação == req.body['HorarioVacinação']){
+            return res.send('horario indisponivel')
+        }
         })
-            
-    })
+    }catch(err){
+        return err
+    }
 
-    db.collection('SegundaDose').find({ "LocaldeVacinação": req.body.LocaldeVacinação }).toArray((err, results) =>{
-        if(err) console.log(err)
-
-
+    /*Verifica se n tem incopatibilidade de horario de agendamento da segunda dose*/
+    try{
+        const results = await db.collection('SegundaDose').find({ "LocaldeVacinação": req.body.LocaldeVacinação }).toArray();
+        
         results.map(e=>{
-            if(e.DatadeVacinação == req.body['DatadeVacinação'] && e.HorarioVacinação == req.body['HorarioVacinação']){
-                return res.status(400).end('Horario indisponivel, ou dia lotado')
-            }
+        if(e.DatadeVacinação == req.body['DatadeVacinação'] && e.HorarioVacinação == req.body['HorarioVacinação']){
+            return res.send('horario indisponivel')
+        }
         })
-            
-    })*/
-    
-    db.collection('PrimeiraDose').find({ "LocaldeVacinação": req.body.LocaldeVacinação }).toArray((err, results) =>{
-        if(err) console.log(err)
-
-
-        results.map(e=>{
-            if(e.DatadeVacinação == req.body['DatadeVacinação'] && e.HorarioVacinação == req.body['HorarioVacinação']){
-                return res.sendStatus(502).end('Horario indisponivel, ou dia lotado')
-            }
-        })
-
-       
-    })
-
+    }catch(err){
+        return err
+    }
+   
     
 
-    
     const transporter = nodemailer.createTransport({
         service:"gmail",
         auth: {user:"savteste30@gmail.com" ,pass:"@Lodefelipe3"} 
@@ -210,7 +213,6 @@ app.post('/show', function(req, res){
     delete req.body['Data-de-Nascimento']
     const savedb = {...req.body, MarcaDaVacina, DataDeNascimento}
 
-    console.log(savedb)
 if(savedb.dose == "Segunda Dose"){
     db.collection("SegundaDose").insertOne(savedb, (err, result) => {
         if(err){
