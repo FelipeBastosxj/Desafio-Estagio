@@ -79,7 +79,7 @@ img{
     border: 2px solid #E8F9E0;
     background-color: #BACBB2;
     display: flex;
-    margin-left: 950px;
+    margin-left: 850px;
     justify-content: center;
     cursor: pointer;
     transition: 0.3s ease-in-out;
@@ -161,6 +161,7 @@ input::-webkit-inner-spin-button {
     justify-content: center;
     align-items: center;
     color: #26bfaa;
+    text-align: center;
 }
 
 .botoes{
@@ -347,3 +348,57 @@ input::-webkit-inner-spin-button {
     display: none;
 }
 
+@media only screen and (max-width: 768px){
+
+    .botoes button{
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .title p{
+        text-align: center;
+        padding-right: 15px;
+    }
+    .title{
+        margin-left: 0px;
+    }
+    .principal{
+        width: 100%;
+    }
+    .mostrarP{
+        width: 100%;
+    }
+    #sub{
+        margin-left: 200px;
+    }
+    .mostrarP form input{
+        width: 18rem;
+    }
+    .mostrarP form select{
+        width: 20rem;
+    }
+    .mostrarP label{
+        margin-right: 0px;
+    }
+    .title2{
+        width: 18rem;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .aplicador{
+        width: 100%;
+    }
+
+    .aplicador h1{
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .aplicador form input{
+        width: 70%;
+    }
+    .aplicador form label{
+        margin-top: 0px;
+        margin-right: 63%;
+    }
+}
