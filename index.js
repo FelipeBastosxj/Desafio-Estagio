@@ -115,7 +115,7 @@ app.post('/show', async function(req, res){
     /*verifica CPF dos cadastrados da primeira Dose*/
     try{
 
-        const results = await db.collection('PrimeiraDose').find().toArray();
+        const results = await db.collection('PrimeiraDose').find({ "Cpf": req.body.Cpf }).toArray();
 
         results.map(e=>{
             if(req.body.Cpf == e.Cpf){
@@ -126,10 +126,10 @@ app.post('/show', async function(req, res){
         return err
     }
 
-    /*verifica CPF dos cadastrados da primeira Dose*/
+    /*verifica CPF dos cadastrados da Segunda Dose*/
     try{
 
-        const resultados = await db.collection('SegundaDose').find().toArray();
+        const resultados = await db.collection('SegundaDose').find({ "Cpf": req.body.Cpf }).toArray();
 
         resultados.map(e=>{
             if(req.body.Cpf == e.Cpf){
